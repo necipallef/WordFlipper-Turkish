@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Word Flipper</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div>
+    <textarea id="textarea" rows="15" cols="100">ŞLU JLJFH ÇRURNĞUÇR, ĞUÇZ, ŞLU NFUÇF,
+ŞLU NZPAYGY ÇBIFACLUOFKLPF ZJÜYG;
+SFAÜLG CZ ZÖIYÜYP HFPZUYPÇZ
+HĞPRGRU ÇRURU.
+
+ŞLU SFÜL ŞFÜŞFNZI CFPLNAF ZJYHAZUÇZ,
+SBDFUCFAFUL RJCZP ROZ ĞUÜZP;
+ZAÇYÜ JLJFÖLÜL GRUZÜZ ŞZKCYÜ,
+ŞZKCYÜ HL NZPAYIAYÖYÜÜYG.
+
+ŞLU ŞZGYPZ ZUGYPAYNĞU ŞLU ZÇZÜ ÜZDL CUFPL
+HFGHF NZAPYI ŞRPRP LJLP KFDKFNÇLÜ KFPL.
+
+    </textarea>
+    <button id="result_button" onclick="onResultButtonClicked()">Sonuç</button>
+</div>
+<div id="alphabet">
+
+</div>
+<div hidden>
+    <input id="char_count_input" placeholder="Kaç Karakter?" type="number">
+    <button onclick="onFlipClicked()">Flip</button>
+</div>
+<hr>
+<div>
+    <b>Sonuç:</b>
+</div>
+<div>
+    <textarea id="result" rows="15" cols="100"></textarea>
+</div>
+
+<script>
+
+    let textArea = null;
+    let resultLabel = null;
+    let charCountInput = null;
+    let alphabetDiv = null;
+    let alphabet = null;
+
+    $(document).ready(() => {
+        textArea = $('#textarea');
+        resultLabel = $('#result');
+        charCountInput = $('#char_count_input');
+        alphabetDiv = $('#alphabet');
+
+        const alphabet = getAlphabet();
+        let row = 0;
+        let htmlAll = '';
+        for (let index = 0; index < alphabet.length; index++) {
+            const element = alphabet[index];
+            const char = String.fromCharCode(element);
+            const id_char = 'id_' + element;
+            const id_checkbox = 'id_cb_' + element;
+            let html = '<label style="margin-left: 10px;">' + char + ' -> </label><input width="50px;" id="' + id_char + '"><input id="' + id_checkbox + '" type="checkbox">';
+            const curRow = Math.floor(index / 4);
+            if (curRow > row) {
+                html = '</div><br><div>' + html;
+                row = curRow;
+            }
+            if (index === 0) {
+                html = '<div>' + html;
+            }
+            htmlAll = htmlAll + html;
+        }
+        htmlAll = htmlAll + '</div>';
+        alphabetDiv.append(htmlAll);
+
+        applySolution();
+    });
+
+    function applySolution() {
+        matchSolution('A', 'L');
+        matchSolution('B', 'Ü');
+        matchSolution('C', 'T');
+        matchSolution('D', 'V');
+        matchSolution('F', 'E');
+        matchSolution('G', 'Ş');
+        matchSolution('H', 'K');
+        matchSolution('I', 'Z');
+        matchSolution('J', 'Ç');
+        matchSolution('K', 'S');
+        matchSolution('L', 'İ');
+        matchSolution('N', 'Y');
+        matchSolution('O', 'C');
+        matchSolution('P', 'N');
+        matchSolution('R', 'U');
+        matchSolution('S', 'G');
+        matchSolution('U', 'R');
+        matchSolution('Y', 'I');
+        matchSolution('Z', 'A');
+        matchSolution('Ğ', 'O');
+        matchSolution('Ü', 'M');
+        matchSolution('Ş', 'B');
+        matchSolution('Ö', 'Ğ');
+        matchSolution('Ç', 'D');
+    }
+
+    function matchSolution(key, value) {
+        $('#id_' + key.charCodeAt(0)).prop('value', value);
+        $('#id_cb_' + key.charCodeAt(0)).prop('checked', true);
+    }
+
+    // function onFlipClicked() {
+    //     const input = textArea.val();
+    //     const charCount = parseInt(charCountInput.val());
+    //     if (isNaN(charCount) || charCount === null) {
+    //         alert('Numara giriniz.');
+    //         return;
+    //     }
+    //
+    //     const flippedWord = caesarCipher(input, charCount);
+    //     resultLabel.empty();
+    //     resultLabel.append(flippedWord);
+    // }
+
+    // function caesarCipher(str, num) {
+    //     // you can comment this line
+    //     str = str.toLowerCase();
+    //
+    //     let charCodeList = [];
+    //
+    //     for (let i = 0; i < str.length; i++) {
+    //         let charCode = str[i].charCodeAt(0) + num;
+    //         charCodeList.push(charCode);
+    //     }
+    //
+    //     return String.fromCharCode(...charCodeList);
+    // }
+
+    function getAlphabet() {
+        if (alphabet !== null) {
+            return alphabet;
+        }
+
+        const aChar = "A".charCodeAt(0);
+        const zChar = "Z".charCodeAt(0);
+        const alphabetArray = [];
+        for (let index = aChar; index < zChar + 1; index++) {
+            if (index === 81) { // Q
+                continue;
+            }
+            if (index === 87) { // W
+                continue;
+            }
+            if (index === 88) { // X
+                continue;
+            }
+            alphabetArray.push(index);
+        }
+
+        alphabetArray.push("Ğ".charCodeAt(0));
+        alphabetArray.push("Ü".charCodeAt(0));
+        alphabetArray.push("Ş".charCodeAt(0));
+        alphabetArray.push("İ".charCodeAt(0));
+        alphabetArray.push("Ö".charCodeAt(0));
+        alphabetArray.push("Ç".charCodeAt(0));
+
+        alphabet = alphabetArray;
+        return alphabet;
+    }
+
+    function onResultButtonClicked() {
+        const predefineds = getPredefineds();
+        if (!predefineds) {
+            return;
+        }
+
+        const lookup = fillInputs(predefineds);
+        if (!lookup) {
+            return;
+        }
+        const input = textArea.val();
+        const result = [];
+        for (let index = 0; index < input.length; index++) {
+            const char = input[index].charCodeAt(0);
+            const charResult = lookup[char];
+            if (charResult === undefined) {
+                result.push(char);
+            } else {
+                result.push(charResult);
+            }
+        }
+
+        const resultString = String.fromCharCode(...result);
+        resultLabel.empty();
+        resultLabel.append(resultString);
+    }
+
+    function getPredefineds() {
+        const predefineds = [];
+        const alphabet = getAlphabet();
+        for (let index = 0; index < alphabet.length; index++) {
+            const element = alphabet[index];
+            const id = 'id_' + element;
+            const input = $('#' + id);
+            const idCheckbox = 'id_cb_' + element;
+            const inputCheckbox = $('#' + idCheckbox);
+            const isChecked = inputCheckbox.is(':checked');
+            if (isChecked === true) {
+                const valueElement = input.val();
+                if (valueElement === undefined || valueElement === null || valueElement === '') {
+                    alert('Harf giriniz');
+                    return false;
+                }
+
+                predefineds.push(valueElement.charCodeAt(0));
+            }
+        }
+
+        return predefineds;
+    }
+
+    function fillInputs(predefineds) {
+        const alphabet = getAlphabet();
+        const nonPredefinedAlphabet = [];
+        for (let charCode of alphabet) {
+            if (predefineds.includes(charCode) !== true) {
+                nonPredefinedAlphabet.push(charCode);
+            }
+        }
+
+        const shuffled = shuffle(nonPredefinedAlphabet);
+        const lookup = [];
+        let shuffledIndex = 0;
+        for (let index = 0; index < alphabet.length; index++) {
+            const element = alphabet[index];
+            const id = 'id_' + element;
+            const input = $('#' + id);
+            const idCheckbox = 'id_cb_' + element;
+            const inputCheckbox = $('#' + idCheckbox);
+            const isChecked = inputCheckbox.is(':checked');
+            if (isChecked === true) {
+                const valueElement = input.val();
+                lookup[element] = valueElement.charCodeAt(0);
+            } else {
+
+                const shuffledElement = shuffled[shuffledIndex++];
+                const shuffledChar = String.fromCharCode(shuffledElement);
+                input.val(shuffledChar);
+
+                lookup[element] = shuffledElement;
+            }
+        }
+
+        return lookup;
+    }
+
+    function shuffle(array) {
+        let j, temp, i;
+        let result = Object.assign([], array);
+        for (i = array.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            temp = result[i];
+            result[i] = result[j];
+            result[j] = temp;
+        }
+        return result;
+    }
+</script>
+</body>
+</html>
