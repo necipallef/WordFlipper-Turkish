@@ -150,32 +150,32 @@ HFGHF NZAPYI ŞRPRP LJLP KFDKFNÇLÜ KFPL.
         const data = $.ajax('data.json', {
             crossDomain: true
         });
-        console.log({data});
+        alphabet = data['responseJSON']['alphabet'];
 
-        const aChar = "A".charCodeAt(0);
-        const zChar = "Z".charCodeAt(0);
-        const alphabetArray = [];
-        for (let index = aChar; index < zChar + 1; index++) {
-            if (index === 81) { // Q
-                continue;
-            }
-            if (index === 87) { // W
-                continue;
-            }
-            if (index === 88) { // X
-                continue;
-            }
-            alphabetArray.push(index);
-        }
-
-        alphabetArray.push("Ğ".charCodeAt(0));
-        alphabetArray.push("Ü".charCodeAt(0));
-        alphabetArray.push("Ş".charCodeAt(0));
-        alphabetArray.push("İ".charCodeAt(0));
-        alphabetArray.push("Ö".charCodeAt(0));
-        alphabetArray.push("Ç".charCodeAt(0));
-
-        alphabet = alphabetArray;
+        // const aChar = "A".charCodeAt(0);
+        // const zChar = "Z".charCodeAt(0);
+        // const alphabetArray = [];
+        // for (let index = aChar; index < zChar + 1; index++) {
+        //     if (index === 81) { // Q
+        //         continue;
+        //     }
+        //     if (index === 87) { // W
+        //         continue;
+        //     }
+        //     if (index === 88) { // X
+        //         continue;
+        //     }
+        //     alphabetArray.push(index);
+        // }
+        //
+        // alphabetArray.push("Ğ".charCodeAt(0));
+        // alphabetArray.push("Ü".charCodeAt(0));
+        // alphabetArray.push("Ş".charCodeAt(0));
+        // alphabetArray.push("İ".charCodeAt(0));
+        // alphabetArray.push("Ö".charCodeAt(0));
+        // alphabetArray.push("Ç".charCodeAt(0));
+        //
+        // alphabet = alphabetArray;
         return alphabet;
     }
 
