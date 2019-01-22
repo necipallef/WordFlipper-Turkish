@@ -50,7 +50,7 @@ HFGHF NZAPYI ŞRPRP LJLP KFDKFNÇLÜ KFPL.
     let alphabet = null;
 
     // $(document).ready(() => {
-    $(window).on('load', () => {
+    // $(window).on('load', () => {
         textArea = $('#textarea');
         resultLabel = $('#result');
         charCountInput = $('#char_count_input');
@@ -79,7 +79,7 @@ HFGHF NZAPYI ŞRPRP LJLP KFDKFNÇLÜ KFPL.
         alphabetDiv.append(htmlAll);
 
         applySolution();
-    });
+    // });
 
     function applySolution() {
         matchSolution('A', 'L');
@@ -146,36 +146,39 @@ HFGHF NZAPYI ŞRPRP LJLP KFDKFNÇLÜ KFPL.
         if (alphabet !== null) {
             return alphabet;
         }
-
-        const data = $.ajax('data.json', {
-            crossDomain: true
-        });
-        alphabet = data.responseJSON.alphabet;
-
-        // const aChar = "A".charCodeAt(0);
-        // const zChar = "Z".charCodeAt(0);
-        // const alphabetArray = [];
-        // for (let index = aChar; index < zChar + 1; index++) {
-        //     if (index === 81) { // Q
-        //         continue;
-        //     }
-        //     if (index === 87) { // W
-        //         continue;
-        //     }
-        //     if (index === 88) { // X
-        //         continue;
-        //     }
-        //     alphabetArray.push(index);
-        // }
         //
-        // alphabetArray.push("Ğ".charCodeAt(0));
-        // alphabetArray.push("Ü".charCodeAt(0));
-        // alphabetArray.push("Ş".charCodeAt(0));
-        // alphabetArray.push("İ".charCodeAt(0));
-        // alphabetArray.push("Ö".charCodeAt(0));
-        // alphabetArray.push("Ç".charCodeAt(0));
+        // const data = $.ajax('data.json', {
+        //     crossDomain: true,
+        //     success: () => {
         //
-        // alphabet = alphabetArray;
+        //         alphabet = data.responseJSON.alphabet;
+        //     }
+        // });
+
+        const aChar = "A".charCodeAt(0);
+        const zChar = "Z".charCodeAt(0);
+        const alphabetArray = [];
+        for (let index = aChar; index < zChar + 1; index++) {
+            if (index === 81) { // Q
+                continue;
+            }
+            if (index === 87) { // W
+                continue;
+            }
+            if (index === 88) { // X
+                continue;
+            }
+            alphabetArray.push(index);
+        }
+
+        alphabetArray.push("Ğ".charCodeAt(0));
+        alphabetArray.push("Ü".charCodeAt(0));
+        alphabetArray.push("Ş".charCodeAt(0));
+        alphabetArray.push("İ".charCodeAt(0));
+        alphabetArray.push("Ö".charCodeAt(0));
+        alphabetArray.push("Ç".charCodeAt(0));
+
+        alphabet = alphabetArray;
         return alphabet;
     }
 
