@@ -56,10 +56,9 @@ HFGHF NZAPYI ŞRPRP LJLP KFDKFNÇLÜ KFPL.
         charCountInput = $('#char_count_input');
         alphabetDiv = $('#alphabet');
 
-        const alphabet = getAlphabet();
         let row = 0;
         let htmlAll = '';
-        for (let index = 0; index < alphabet.length; index++) {
+        for (let index = 0; index < getAlphabet().length; index++) {
             const element = alphabet[index];
             const char = String.fromCharCode(element);
             const id_char = 'id_' + element;
