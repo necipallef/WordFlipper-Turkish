@@ -147,8 +147,10 @@ HFGHF NZAPYI ŞRPRP LJLP KFDKFNÇLÜ KFPL.
             return alphabet;
         }
 
-        // const data = $.ajax('data.json');
-        // console.log(data);
+        const data = $.ajax('data.json', {
+            crossDomain: true
+        });
+        console.log({data});
 
         const aChar = "A".charCodeAt(0);
         const zChar = "Z".charCodeAt(0);
